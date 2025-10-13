@@ -24,7 +24,7 @@ public class DogApiBreedFetcher implements BreedFetcher {
      * @throws BreedNotFoundException if the breed does not exist (or if the API call fails for any reason)
      */
     @Override
-    public List<String> getSubBreeds(String breed) {
+    public List<String> getSubBreeds(String breed) throws BreedNotFoundException {
         // Task 1: Complete this method based on its provided documentation
         //      and the documentation for the dog.ceo API. You may find it helpful
         //      to refer to the examples of using OkHttpClient from the last lab,
@@ -50,7 +50,7 @@ public class DogApiBreedFetcher implements BreedFetcher {
     }
 
     // Simple test
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BreedNotFoundException {
         DogApiBreedFetcher a = new DogApiBreedFetcher();
         String response = a.getSubBreeds("hound").toString();
         System.out.println(response.equals("[afghan, basset, blood, english, ibizan, plott, walker]"));
