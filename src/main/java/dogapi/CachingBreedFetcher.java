@@ -1,6 +1,7 @@
 package dogapi;
 
 import java.util.*;
+import java.util.concurrent.BrokenBarrierException;
 
 /**
  * This BreedFetcher caches fetch request results to improve performance and
@@ -28,14 +29,14 @@ public class CachingBreedFetcher implements BreedFetcher {
             return cache.get(breed);
         }
         try {
-            List<String> r = fetcher.getSubBreeds(breed);
             callsMade ++;
-            cache.put("breed", r);
+            List<String> r = fetcher.getSubBreeds(breed);
+            cache.put(breed, r);
             return r;
         }
         catch (BreedNotFoundException e) {
-            System.out.println("Breed not found!");
-            return new ArrayList<>();
+            System.out.println("Breed: \"" + breed + "\" not found!");
+            throw e;
         }
     }
 
